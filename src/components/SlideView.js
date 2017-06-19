@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Animated, Text } from 'react-native';
+import { Animated, Text, Easing } from 'react-native';
 
-export default class FadeView extends Component {
+export default class SlideView extends Component {
     constructor(props) {
         super(props);
         this.state = { slideAnim: new Animated.Value(-700) }
@@ -12,7 +12,8 @@ export default class FadeView extends Component {
             this.state.slideAnim,
             {
                 toValue: 0,
-                duration: 5000
+                duration: 1000,
+                easing: Easing.ease
             }
         ).start();
     }
