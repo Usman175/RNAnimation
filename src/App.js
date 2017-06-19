@@ -4,6 +4,7 @@ import FadeView from './components/FadeView';
 import SlideView from './components/SlideView';
 import TransformView from './components/TransformView';
 import HelloApp from './components/HelloApp';
+import ResponseView from './components/ResponseView';
 
 export default class App extends Component {
     render() {
@@ -12,11 +13,11 @@ export default class App extends Component {
                 style={{ 
                     flex: 1, 
                     justifyContent: 'center', 
-                    alignItems: 'center',
+                    alignItems: 'stretch',
                     backgroundColor: 'lightblue'
                 }}
             >
-                <HelloApp />
+                <ResponseView />
             </View>
         );
     }
