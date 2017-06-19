@@ -5,20 +5,20 @@ export default class TransformView extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            colorAnim: new Animated.Value(0)
+            transform: new Animated.Value(0)
         };
     }
 
     componentDidMount() {
         const anim1 = Animated.timing(
-            this.state.colorAnim,
+            this.state.transform,
             {
                 toValue: 1,
                 duration: 1000
             }
         );
         const anim2 = Animated.timing(
-            this.state.colorAnim,
+            this.state.transform,
             {
                 toValue: 0,
                 duration: 1000
@@ -29,17 +29,22 @@ export default class TransformView extends Component {
     }
 
     render() {
-        const backgroundColor = this.state.colorAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: ['green', 'yellow']
+        // const backgroundColor = this.state.colorAnim.interpolate({
+        //     inputRange: [0, 0.5, 1],
+        //     outputRange: ['green', 'red', 'yellow']
+        // });        
+        const rotate = this.state.transform.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: ['15deg', '0deg', '-15deg']
         });
         return (
             <Animated.View
                 style={{
                     width: 300,
                     height: 200,
-                    backgroundColor,
                     marginBottom: 30,
+                    transform: [{ rotate }, { rotateY: rotate}],
+                    backgroundColor: 'green'
                 }}
             />
         );
