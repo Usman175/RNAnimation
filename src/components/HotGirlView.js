@@ -24,7 +24,7 @@ export default class ResponseView extends Component {
         console.log(locationX, locationY);
     }
 
-    onMove(evt) {
+    onMove(evt) { 
         const { locationX, locationY } = evt.nativeEvent;
         const { x, y } = this.state;
         const tyLe = new Animated.Value(1.5 * (locationX - x) / width);
