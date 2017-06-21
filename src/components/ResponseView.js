@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { Animated, Text, View } from 'react-native';
+import icon from '../media/icon.png';
 
 export default class ResponseView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            x: null, y: null
+            x: null, 
+            y: null, 
+            marginLeft: new Animated.Value(0), 
+            marginTop: new Animated.Value(0)
         }
     }
 
@@ -16,7 +20,11 @@ export default class ResponseView extends Component {
     }
 
     onMove(evt) {
-        console.log('I am moving');
+        const { locationX, locationY } = evt.nativeEvent;
+        const { x, y } = this.state;
+        const marginLeft = locationX - x;
+        const marginTop = locationY - y;
+        this.setState({ marginLeft, marginTop });
     }
 
     onRelease(evt) {
@@ -24,6 +32,7 @@ export default class ResponseView extends Component {
     }  
 
     render() {
+        const { marginLeft, marginTop } = this.state;
         return (
             <View 
                 onStartShouldSetResponder={() => true}
@@ -35,7 +44,12 @@ export default class ResponseView extends Component {
                     flex: 1,
                     backgroundColor: 'yellow'
                 }}
-            />
+            >
+                <Animated.Image 
+                    source={icon} 
+                    style={{ height: 100, width: 100, marginLeft, marginTop }} 
+                />
+            </View>
         );
     }
 }
