@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Text, View } from 'react-native';
+import { Animated, Text, View, Easing } from 'react-native';
 import icon from '../media/icon.png';
 
 export default class ResponseView extends Component {
@@ -22,13 +22,31 @@ export default class ResponseView extends Component {
     onMove(evt) {
         const { locationX, locationY } = evt.nativeEvent;
         const { x, y } = this.state;
-        const marginLeft = locationX - x;
-        const marginTop = locationY - y;
+        const marginLeft = new Animated.Value(locationX - x);
+        const marginTop = new Animated.Value(locationY - y);
         this.setState({ marginLeft, marginTop });
     }
 
     onRelease(evt) {
-        console.log('Stop moving');
+        const anim1 = Animated.timing(
+            this.state.marginLeft,
+            {
+                toValue: 0,
+                duration: 500,
+                easing: Easing.bounce
+            }
+        );
+
+        const anim2 = Animated.timing(
+            this.state.marginTop,
+            {
+                toValue: 0,
+                duration: 500,
+                easing: Easing.bounce
+            }
+        );
+
+        Animated.parallel([anim1, anim2]).start();
     }  
 
     render() {
