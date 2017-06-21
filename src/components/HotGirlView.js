@@ -7,6 +7,7 @@ import h4 from '../media/4.jpg';
 import h5 from '../media/5.jpg';
 
 const { width } = Dimensions.get('window');
+const arrImages = [h1, h2, h3, h4, h5];
 
 export default class ResponseView extends Component {
     constructor(props) {
@@ -14,7 +15,8 @@ export default class ResponseView extends Component {
         this.state = {
             x: null, 
             y: null,
-            rotate: new Animated.Value(0)
+            rotate: new Animated.Value(0),
+            index: 0
         }
     }
 
@@ -28,6 +30,22 @@ export default class ResponseView extends Component {
         const { locationX, locationY } = evt.nativeEvent;
         const { x, y } = this.state;
         const tyLe = new Animated.Value(1.5 * (locationX - x) / width);
+        if (1.5 * (locationX - x) / width > 1) {
+            this.setState({ 
+                index: (this.state.index + 1) % 5,
+                x: locationX,
+                y: locationY
+            });
+        }
+
+        if (1.5 * (locationX - x) / width < -1) {
+            this.setState({ 
+                index: (this.state.index - 1 + 5) % 5,
+                x: locationX,
+                y: locationY
+            });
+        }
+        
         this.setState({ rotate: tyLe });
     }
 
@@ -67,7 +85,7 @@ export default class ResponseView extends Component {
                 }}
             >
                 <Animated.Image 
-                    source={h1} 
+                    source={arrImages[this.state.index]} 
                     style={{ height: 200, width: 150, opacity, transform: [{ rotate }] }} 
                 />
             </View>
