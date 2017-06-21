@@ -5,6 +5,7 @@ import SlideView from './components/SlideView';
 import TransformView from './components/TransformView';
 import HelloApp from './components/HelloApp';
 import ResponseView from './components/ResponseView';
+import HotGirlView from './components/HotGirlView';
 
 export default class App extends Component {
     render() {
@@ -17,7 +18,7 @@ export default class App extends Component {
                     backgroundColor: 'lightblue'
                 }}
             >
-                <ResponseView />
+                <HotGirlView />
             </View>
         );
     }
